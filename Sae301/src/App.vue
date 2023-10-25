@@ -1,29 +1,29 @@
 <script setup>
 // Import éléments de vue
-import { ref, onMounted } from 'vue';
+import { ref, onMounted,provide } from 'vue';
 // Import éléments de routage
 import Home from '@/views/HomeView.vue'
 import Headerpage from '@/components/Header.vue'
 import Footerpage from '@/components/Footer.vue'
 import { useRouter } from 'vue-router';
+import PocketBase from 'pocketbase'
 const router = useRouter()
 
- // Import pocketbase
-  import PocketBase from 'pocketbase'
+
   // Objet pocketBase
   const pb = new PocketBase("http://127.0.0.1:8090");
 
-  
-  // user connecté ? au départ faux
-  let isConnected = ref(false)
 
   // Element de connexion
   let user = ref('')
   let psw = ref('')
 
-  // User connecté
+    // User connecté
   let currentUser = ref(null)
   let avatar = ref(null)
+
+  // user connecté ? au départ faux
+  let isConnected = ref(false)
 
 // Au montage du composant
 onMounted(async() => {
@@ -54,7 +54,7 @@ const connect = async()=>{
   try{
     const authData = await pb.collection('users')
     .authWithPassword(user.value, psw.value)
-//    console.log("connecté : ",authData)
+    console.log("connecté : ",authData)
     refresh()    
   }catch(error){
 //    console.log("erreur de connexion : ",error.message)
@@ -72,14 +72,23 @@ const deconnect = ()=>{
   // Retour à la page d'accueil -> Redirection
   router.push({name:"HomeView"})
 }
+
+const refreshTrigger = ref(0);
+
+const incrementRefreshTrigger = () => {
+  refreshTrigger.value++;
+  // Émettre l'événement ici si nécessaire
+  // this.$emit('refresh-header');
+};
+provide('refreshTrigger', refreshTrigger);
 </script>
 
 <template>
   <header>
-    <Headerpage />
+    <Headerpage :refreshTrigger="refreshTrigger" />
   </header>
   <div>
-    <RouterView />
+    <RouterView @refresh-header="incrementRefreshTrigger" />
   </div>
   <footer>
     <Footerpage/>

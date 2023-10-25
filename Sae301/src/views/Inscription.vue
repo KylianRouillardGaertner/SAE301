@@ -25,26 +25,17 @@ export default {
 <script setup>
 // Import éléments de vue
 import { ref, onMounted } from 'vue';
+ // Import pocketbase
+ import PocketBase from 'pocketbase'
 // Import éléments de routage
 import { useRouter } from 'vue-router';
 const router = useRouter()
 
- // Import pocketbase
- import PocketBase from 'pocketbase'
-  // Objet pocketBase
-  const pb = new PocketBase("http://127.0.0.1:8090");
 
-  
-  // user connecté ? au départ faux
-  let isConnected = ref(false)
-
-  // Element de connexion
-  let user = ref('')
-  let psw = ref('')
-
-  // User connecté
-  let currentUser = ref(null)
-  let avatar = ref(null)
+const pb = new PocketBase("http://127.0.0.1:8090");
+let currentUser = ref(null)
+let avatar = ref(null)
+let isConnected = ref(false)
 
 // Au montage du composant
 onMounted(async() => {
@@ -52,7 +43,6 @@ onMounted(async() => {
   refresh()
 
 })
-
 const refresh = ()=>{
   if(pb.authStore.isValid){
     currentUser.value = pb.authStore.model
@@ -69,29 +59,6 @@ const refresh = ()=>{
 
 //      console.log("image avatar utilisateur", avatar)
   }
-}
-
-const connect = async()=>{
-  try{
-    const authData = await pb.collection('users')
-    .authWithPassword(user.value, psw.value)
-//    console.log("connecté : ",authData)
-    refresh()    
-  }catch(error){
-//    console.log("erreur de connexion : ",error.message)
-    alert("Erreur d'identification : mauvais login et/ou mot de passe")
-    user.value = ""
-    psw.value = ""
-  }
-}
-
-const deconnect = ()=>{
-  // Suppression utilisateur connecté
-  pb.authStore.clear()
-  isConnected.value=false
-  avatar.value = null
-  // Retour à la page d'accueil -> Redirection
-  router.push({name:"HomeView"})
 }
 </script>
 <template>

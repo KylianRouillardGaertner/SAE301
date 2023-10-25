@@ -1,21 +1,17 @@
 <script setup>
   // Import éléments de vue
-  import { ref, onMounted } from 'vue';
+  import { ref, onMounted, watchEffect, inject } from 'vue';
   // Import éléments de routage
   import { useRouter } from 'vue-router';
+  import PocketBase from 'pocketbase'
 const router = useRouter()
 
- // Import pocketbase
- import PocketBase from 'pocketbase'
-  // Objet pocketBase
-  const pb = new PocketBase("http://127.0.0.1:8090");
-
-// User connecté
+const pb = new PocketBase("http://127.0.0.1:8090");
 let currentUser = ref(null)
 let avatar = ref(null)
-
-// user connecté ? au départ faux
 let isConnected = ref(false)
+
+const refreshTrigger = inject('refreshTrigger');
 
 // Au montage du composant
 onMounted(async() => {
@@ -42,6 +38,13 @@ const refresh = ()=>{
   }
 }
 
+// Watch the refreshTrigger variable
+watchEffect(() => {
+  // Réagir au changement de la variable refreshTrigger ici
+  console.log('Refresh trigger changed:', refreshTrigger.value);  
+  refresh()
+});
+
 const deconnect = ()=>{
   // Suppression utilisateur connecté
   pb.authStore.clear()
@@ -65,13 +68,15 @@ const deconnect = ()=>{
             </div>
             <div v-if="isConnected" class="my-auto pr-10 text-center">
                 <button class="mx-3 float-right mt-1"><img class="my-auto" src="../../public/icons/Basket.svg" alt="Panier"></button>
-                <button class="bg-btn text-white text-center w-30 h-10 py-1.5 px-3 mx-3 mt-2 float-right inline-flex items-center" type="button" @click="deconnect">
-                    <img src="../../public/icons/instagram.svg" alt="Deconnect">
-                </button>
-                <img :src="avatar" class="img-fluid float-right" style="max-width:60px; border-radius: 50%;" />           
-                <button class="text-black float-right mr-3 mt-4">
-                  {{ currentUser.prenom }} {{ currentUser.nom }}
-                </button>
+                <div class="border-2 border-btn ml-28 w-[280px] h-[63px]">
+                  <button class="text-white text-center w-30 h-10 py-1.5 px-3 mx-3 mt-2 float-right inline-flex items-center" type="button" @click="deconnect">
+                    <img class="w-[30px]" src="../../public/icons/Exit.svg" alt="Deconnect">
+                  </button>
+                  <img :src="avatar" class="img-fluid float-right" style="max-width:60px; border-radius: 50%;" />           
+                  <div class="text-black float-right mr-3 mt-4">
+                    {{ currentUser.prenom }} {{ currentUser.nom }}
+                  </div>
+                </div>
             </div>
             <div v-else class="my-auto pr-10">
                 <RouterLink to="/connexion"><button class="bg-btn text-white text-center w-30 h-10 py-1.5 px-3 mx-3 float-right inline-flex items-center">Connexion<img class="ml-2" src="../../public/icons/Vector2.svg" alt="flèche"></button></RouterLink>

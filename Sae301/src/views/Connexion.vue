@@ -23,44 +23,19 @@ export default {
 import { ref, onMounted } from 'vue';
 // Import éléments de routage
 import { useRouter } from 'vue-router';
-import currentUser from '@/components/Header.vue';
-import avatar from '@/components/Header.vue';
-import isConnected from '@/components/Header.vue';
+import PocketBase from 'pocketbase'
 const router = useRouter()
 
- // Import pocketbase
- import PocketBase from 'pocketbase'
-  // Objet pocketBase
-  const pb = new PocketBase("http://127.0.0.1:8090");
+
+const pb = new PocketBase("http://127.0.0.1:8090");
+let user = ref('')
+let psw = ref('')
 
 
-  // Element de connexion
-  let user = ref('')
-  let psw = ref('')
-
-
-// Au montage du composant
-onMounted(async() => {
-  // Vérifier que le user est déjà connecté
-  refresh()
-
-})
-
-const refresh = ()=>{
-  if(pb.authStore.isValid){
-    currentUser.value = pb.authStore.model
-    isConnected.value = true
-
-    avatar.value =
-      "http://127.0.0.1:8090/api/files/"  // Adresse serveur et repertoire des fichiers image
-      +currentUser.value.collectionId     // Id ou name de la collection concernée
-      +"/"
-      +currentUser.value.id               // Id de l'utilisateur connecté
-      +"/"
-      +currentUser.value.avatar           // Nom fichier image pocketbase
-      +"?thumb=100x100"                   // Taille par défaut     
-
-//      console.log("image avatar utilisateur", avatar)
+const refresh = () => {
+  if (pb.authStore.isValid) {
+    router.push('/');
+    emit('refresh-header');
   }
 }
 
@@ -78,14 +53,6 @@ const connect = async()=>{
   }
 }
 
-const deconnect = ()=>{
-  // Suppression utilisateur connecté
-  pb.authStore.clear()
-  isConnected.value=false
-  avatar.value = null
-  // Retour à la page d'accueil -> Redirection
-  router.push({name:"HomeView"})
-}
 </script>
 <template>
     <div class="bg-primary grid grid-cols-3 pt-12 pb-24">

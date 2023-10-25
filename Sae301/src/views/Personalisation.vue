@@ -1,5 +1,5 @@
 <script setup>
-import Modele from '../../public/configurateur/Modele.vue'
+import Modele from '../../public/configurateur/Lunettes.vue'
 </script>
 <script>
 export default {

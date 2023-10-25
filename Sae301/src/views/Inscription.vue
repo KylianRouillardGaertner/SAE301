@@ -32,7 +32,7 @@ const router = useRouter()
  // Import pocketbase
  import PocketBase from 'pocketbase'
   // Objet pocketBase
-  const pb = new PocketBase("http://193.168.146.65:80");
+  const pb = new PocketBase("http://127.0.0.1:8090");
 
   
   // user connecté ? au départ faux
@@ -59,7 +59,7 @@ const refresh = ()=>{
     isConnected.value = true
 
     avatar.value =
-      "http://193.168.146.65:80/api/files/"  // Adresse serveur et repertoire des fichiers image
+      "http://127.0.0.1:8090/api/files/"  // Adresse serveur et repertoire des fichiers image
       +currentUser.value.collectionId     // Id ou name de la collection concernée
       +"/"
       +currentUser.value.id               // Id de l'utilisateur connecté

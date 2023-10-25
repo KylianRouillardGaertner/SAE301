@@ -20,11 +20,12 @@ export default {
 </script>
 <script setup>
 // Import éléments de vue
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, getCurrentInstance } from 'vue';
 // Import éléments de routage
 import { useRouter } from 'vue-router';
 import PocketBase from 'pocketbase'
 const router = useRouter()
+const { context, emit } = getCurrentInstance();
 
 
 const pb = new PocketBase("http://127.0.0.1:8090");
@@ -32,24 +33,21 @@ let user = ref('')
 let psw = ref('')
 
 
-const refresh = () => {
-  if (pb.authStore.isValid) {
-    router.push('/');
-    emit('refresh-header');
-  }
-}
 
-const connect = async()=>{
-  try{
-    const authData = await pb.collection('users')
-    .authWithPassword(user.value, psw.value)
-    console.log("connecté : ",authData)
-    refresh()    
-  }catch(error){
-//    console.log("erreur de connexion : ",error.message)
-    alert("Erreur d'identification : mauvais login et/ou mot de passe")
-    user.value = ""
-    psw.value = ""
+const connect = async () => {
+  try {
+    const authData = await pb.collection('users').authWithPassword(user.value, psw.value);
+    console.log("Connecté : ", authData);
+    
+    // Émettre l'événement "refresh-header" ici
+    emit('refresh-header');
+    router.push('/')
+    
+  } catch (error) {
+    console.log("Erreur de connexion : ", error.message);
+    alert("Erreur d'identification : mauvais login et/ou mot de passe");
+    user.value = "";
+    psw.value = "";
   }
 }
 

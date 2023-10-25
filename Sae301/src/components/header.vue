@@ -51,7 +51,7 @@ const deconnect = ()=>{
   isConnected.value=false
   avatar.value = null
   // Retour à la page d'accueil -> Redirection
-  router.push({name:"HomeView"})
+  router.push('/')
 }
 </script>
 <template>

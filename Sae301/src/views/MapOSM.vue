@@ -67,8 +67,8 @@
   let tileLayer = Leaflet.tileLayer
   let map = ref()
   let myIcon = Leaflet.icon({
-    iconUrl: '@/../public/leaflet/marker-icon.png',
-    shadowUrl: '@/../public/leaflet/marker-shadow.png',
+    iconUrl: '/leaflet/marker-icon.png',
+    shadowUrl: '/leaflet/marker-shadow.png',
     iconSize: [25, 41],
     shadowSize: [25, 41],
     iconAnchor: [-10, -10],

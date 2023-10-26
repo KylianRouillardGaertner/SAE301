@@ -1,0 +1,16 @@
+Users :
+	user : SAE301@gmail.com
+	mdp : SAE3012023
+
+	user : public@gmail.com
+	mdp : Admin123
+
+	user : test1234@outlook.fr
+	mdp : test1234
+
+Admins :
+	user : Admin@mail.com
+	mdp : 2023SAE301MMi
+
+	user : admin2@gmail.com
+	mdp : Password123

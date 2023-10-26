@@ -215,7 +215,7 @@ const voirMonPanier = () => {
                 <button class="bg-btn text-white text-center w-30 h-10 py-1.5 px-3 mx-auto inline-flex items-center" @click="part3">Suivant <img class="ml-2" src="../../public/icons/Vector2.svg" alt="flèche"></button>
             </div>
             <div class="text-center row-start-6 row-span-1" v-show="activePart === 2">
-                <button class="bg-btn text-white text-center w-30 h-10 py-1.5 px-3 mx-auto inline-flex items-center" @click="voirMonPanier">Voir mon panier <img class="ml-2" src="../../public/icons/Vector2.svg" alt="flèche"></button>
+                <button class="bg-btn text-white text-center w-30 h-10 py-1.5 px-3 mx-auto inline-flex items-center" @click="voirMonPanier">Envoyer sur PocketBase <img class="ml-2" src="../../public/icons/Vector2.svg" alt="flèche"></button>
             </div>
         </div>
     </div>

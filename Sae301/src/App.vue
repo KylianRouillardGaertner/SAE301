@@ -12,7 +12,7 @@ const router = useRouter()
 
   // Objet pocketBase
   // const pb = new PocketBase("http://127.0.0.1:8090");
-  const pb = new PocketBase("http://127.0.0.1:8090");
+  const pb = new PocketBase("https://sae301.kyliangaertner.space");
 
 
   // Element de connexion
@@ -40,7 +40,7 @@ const refresh = ()=>{
 
     avatar.value =
       // "http://127.0.0.1:8090/api/files/" 
-      "http://127.0.0.1:8090/api/files/"  // Adresse serveur et repertoire des fichiers image
+      "https://sae301.kyliangaertner.space/api/files/"  // Adresse serveur et repertoire des fichiers image
       +currentUser.value.collectionId     // Id ou name de la collection concernée
       +"/"
       +currentUser.value.id               // Id de l'utilisateur connecté

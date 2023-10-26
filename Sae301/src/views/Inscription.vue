@@ -76,7 +76,7 @@ import { useRouter } from 'vue-router';
 const { context, emit } = getCurrentInstance();
 const router = useRouter();
 // const pb = new PocketBase("http://127.0.0.1:8090");
-const pb = new PocketBase("http://127.0.0.1:8090");
+const pb = new PocketBase("https://sae301.kyliangaertner.space");
 
 let email = ref('');
 let password = ref('');

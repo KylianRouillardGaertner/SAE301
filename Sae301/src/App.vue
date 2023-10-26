@@ -90,7 +90,7 @@ provide('refreshTrigger', refreshTrigger);
     <Headerpage :refreshTrigger="refreshTrigger" />
   </header>
   <div>
-    <RouterView @refresh-header="incrementRefreshTrigger" />
+    <RouterView @refresh-header="incrementRefreshTrigger" :refreshTrigger="refreshTrigger" />
   </div>
   <footer>
     <Footerpage/>

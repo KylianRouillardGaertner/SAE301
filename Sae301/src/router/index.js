@@ -4,6 +4,7 @@ import Inscription from '../views/Inscription.vue'
 import Connexion from '../views/Connexion.vue'
 import Panier from '../views/Panier.vue'
 import Personalisation from '../views/Personalisation.vue'
+import Map from '../views/MapOSM.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -32,6 +33,11 @@ const router = createRouter({
       path: '/personalisation',
       name: 'personalisation',
       component: Personalisation
+    },
+    {
+      path: '/map',
+      name: 'map',
+      component: Map
     }
   ]
 })

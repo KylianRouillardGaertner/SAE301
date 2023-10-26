@@ -63,7 +63,7 @@ const deconnect = ()=>{
                 <RouterLink class="mx-3" to="/personalisation">Personnalisation</RouterLink>
                 <button class="mx-3">Offres</button>   
                 <button class="mx-3 inline-flex items-center">Collections <img class="ml-2 mt-1" src="../../public/icons/Vector.svg" alt="flèche"></button>
-                <button class="mx-3">Boutique</button>
+                <RouterLink class="mx-3" to="/map">Boutique</RouterLink>
             </div>
             <div class="mx-auto pt-3">
                 <RouterLink to="/"><img src="../../public/MiniLogo.svg" alt="logo corpo"></RouterLink>

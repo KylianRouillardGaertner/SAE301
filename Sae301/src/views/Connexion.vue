@@ -32,7 +32,22 @@ const pb = new PocketBase("https://sae301.kyliangaertner.space");
 let user = ref('')
 let psw = ref('')
 
-
+const signInWithGoogle = async () => {
+  try {
+    const authData = await pb.collection("users").authWithOAuth2({ provider: "google" });
+    console.log("Connecté : ", authData);
+    
+    // Émettre l'événement "refresh-header" ici
+    emit('refresh-header');
+    router.push('/')
+    
+  } catch (error) {
+    console.log("Erreur de connexion : ", error.message);
+    alert("Erreur d'identification : mauvais login et/ou mot de passe");
+    user.value = "";
+    psw.value = "";
+  }
+}
 
 const connect = async () => {
   try {

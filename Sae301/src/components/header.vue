@@ -68,7 +68,7 @@ const deconnect = ()=>{
             </div>
             <div v-if="isConnected" class="my-auto pr-10 text-center">
                 <button class="mx-3 float-right mt-1"><img class="my-auto" src="../../public/icons/Basket.svg" alt="Panier"></button>
-                <div class="border-2 border-btn ml-28 w-[280px] h-[63px]">
+                <div class="border-2 border-btn mr-16 h-[63px]">
                   <button class="text-white text-center w-30 h-10 py-1.5 px-3 mx-3 mt-2 float-right inline-flex items-center" type="button" @click="deconnect">
                     <img class="w-[30px]" src="../../public/icons/Exit.svg" alt="Deconnect">
                   </button>

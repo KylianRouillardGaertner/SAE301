@@ -6,6 +6,7 @@
   import PocketBase from 'pocketbase'
 const router = useRouter()
 
+// const pb = new PocketBase("http://127.0.0.1:8090");
 const pb = new PocketBase("http://127.0.0.1:8090");
 let currentUser = ref(null)
 let avatar = ref(null)
@@ -26,6 +27,7 @@ const refresh = ()=>{
     isConnected.value = true
 
     avatar.value =
+    // "http://127.0.0.1:8090/api/files/" 
       "http://127.0.0.1:8090/api/files/"  // Adresse serveur et repertoire des fichiers image
       +currentUser.value.collectionId     // Id ou name de la collection concernée
       +"/"
